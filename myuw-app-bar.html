@@ -123,6 +123,8 @@
         <div class='region' id='region__profile'>
             <slot id='profile-slot' name='myuw-profile' />
         </div>
+
+        <slot id='drawer-slot' name='myuw-drawer' />
     </div>
 </template>
 <!--
@@ -183,6 +185,17 @@
             });
 
             this.updateComponent();
+
+            this.shadowRoot.querySelector('#region__navigation').addEventListener('click', () => {
+                const $slot = this.shadowRoot.querySelector('#drawer-slot');
+                $slot.assignedNodes().forEach($drawer => {
+                    if ($drawer.hasAttribute('open')) {
+                        $drawer.removeAttribute('open');
+                    } else {
+                        $drawer.setAttribute('open', null);
+                    }
+                });
+            });
         }
 
         /**
